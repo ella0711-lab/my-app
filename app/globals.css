@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #fbfbf9; /* 레트로 크림색 */
+  --foreground: #09090b; /* 깊은 차콜 블랙 */
+}
+
+.dark {
+  --background: #0c0a09; /* 웜 블랙 */
+  --foreground: #fafaf9; /* 스톤 화이트 */
 }
 
 @theme {
@@ -12,94 +17,188 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
-.dark {
-  --background: #020617;
-  --foreground: #f8fafc;
-}
-
-/* Glassmorphism styling */
-@utility glass {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-@utility glass-dark {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-@utility glass-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-  }
+/* 네오 브루탈리즘 모눈 격자 배경 */
+@utility bg-neo-grid {
+  background-size: 30px 30px;
+  background-image: 
+    linear-gradient(to right, rgba(9, 9, 11, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(9, 9, 11, 0.06) 1px, transparent 1px);
 }
 
 .dark {
-  .glass-hover:hover {
-    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+  .bg-neo-grid {
+    background-image: 
+      linear-gradient(to right, rgba(250, 250, 249, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(250, 250, 249, 0.03) 1px, transparent 1px);
   }
 }
 
-/* Ambient glow effects */
-@utility glow-purple {
-  box-shadow: 0 0 50px -10px rgba(168, 85, 247, 0.15);
+/* 네오 브루탈리즘 기본 박스 (neo-box) */
+@utility neo-box {
+  background-color: var(--background);
+  border: 3.5px solid #09090b;
+  border-radius: 0px; /* 각진 스타일 */
+  box-shadow: 6px 6px 0px 0px #09090b;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@utility glow-blue {
-  box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.15);
+.dark {
+  .neo-box {
+    border-color: #fafaf9;
+    box-shadow: 6px 6px 0px 0px #fafaf9;
+  }
+}
+
+/* 색상별 입체 박스 */
+@utility neo-box-yellow {
+  background-color: #fde047; /* yellow-300 */
+  border: 3.5px solid #09090b;
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px 0px #09090b;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@utility neo-box-lime {
+  background-color: #bef264; /* lime-300 */
+  border: 3.5px solid #09090b;
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px 0px #09090b;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@utility neo-box-cyan {
+  background-color: #67e8f9; /* cyan-300 */
+  border: 3.5px solid #09090b;
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px 0px #09090b;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@utility neo-box-orange {
+  background-color: #fdba74; /* orange-300 */
+  border: 3.5px solid #09090b;
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px 0px #09090b;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dark {
+  .neo-box-yellow, .neo-box-lime, .neo-box-cyan, .neo-box-orange {
+    border-color: #fafaf9;
+    box-shadow: 6px 6px 0px 0px #fafaf9;
+  }
+  .neo-box-yellow { background-color: #ca8a04; } /* dark yellow */
+  .neo-box-lime { background-color: #65a30d; } /* dark lime */
+  .neo-box-cyan { background-color: #0891b2; } /* dark cyan */
+  .neo-box-orange { background-color: #ea580c; } /* dark orange */
+}
+
+/* 네오 브루탈리즘 버튼 (neo-btn) */
+@utility neo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: 3.5px solid #09090b;
+  border-radius: 0px;
+  box-shadow: 4px 4px 0px 0px #09090b;
+  transition: all 0.15s ease-out;
+  cursor: pointer;
+}
+
+@utility neo-btn-yellow {
+  background-color: #fde047;
+}
+
+@utility neo-btn-cyan {
+  background-color: #67e8f9;
+}
+
+@utility neo-btn-white {
+  background-color: #ffffff;
+  color: #09090b;
+}
+
+.neo-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #09090b;
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #09090b;
+}
+
+.dark {
+  .neo-btn {
+    border-color: #fafaf9;
+    box-shadow: 4px 4px 0px 0px #fafaf9;
+  }
+  .neo-btn:hover {
+    box-shadow: 6px 6px 0px 0px #fafaf9;
+  }
+  .neo-btn:active {
+    box-shadow: 2px 2px 0px 0px #fafaf9;
+  }
+  .neo-btn-white {
+    background-color: #1c1917;
+    color: #fafaf9;
+  }
+}
+
+/* 네오 브루탈리즘 폼 인풋 */
+@utility neo-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 3.5px solid #09090b;
+  border-radius: 0px;
+  background-color: var(--background);
+  font-weight: 700;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 4px 4px 0px 0px #09090b;
+}
+
+.neo-input:focus {
+  background-color: #fde047; /* focus 시 시각적 대비 반전 (옐로우) */
+  color: #09090b;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #09090b;
+}
+
+.dark {
+  .neo-input {
+    border-color: #fafaf9;
+    box-shadow: 4px 4px 0px 0px #fafaf9;
+  }
+  .neo-input:focus {
+    background-color: #ca8a04;
+    color: #fafaf9;
+    box-shadow: 6px 6px 0px 0px #fafaf9;
+  }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--background);
+  border-left: 3.5px solid #09090b;
+}
+.dark ::-webkit-scrollbar-track {
+  border-left-color: #fafaf9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
-  border-radius: 9999px;
+  background: #fde047;
+  border: 3px solid #09090b;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #ca8a04;
+  border-color: #fafaf9;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
-}
-
-/* Animations */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@utility animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.2;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.35;
-    transform: scale(1.05);
-  }
-}
-
-@utility animate-pulse-slow {
-  animation: pulse-slow 8s ease-in-out infinite;
+  background: #fdba74;
 }
