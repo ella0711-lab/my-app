@@ -1,13 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fbfbf9; /* 레트로 크림색 */
-  --foreground: #09090b; /* 깊은 차콜 블랙 */
+  --background: #fafaf9; /* 라이트 모드: 아주 밝은 크림 스톤 */
+  --foreground: #09090b; /* 딥 차콜 */
+  --accent-cyan: #0891b2; /* 라이트 모드 다크 cyan */
+  --accent-pink: #db2777; /* 라이트 모드 다크 pink */
+  --accent-lime: #4d7c0f; /* 라이트 모드 다크 lime */
+  --accent-orange: #ea580c; /* 라이트 모드 다크 orange */
 }
 
 .dark {
-  --background: #0c0a09; /* 웜 블랙 */
-  --foreground: #fafaf9; /* 스톤 화이트 */
+  --background: #050508; /* 다크 모드: 칠흑 같은 사이버 딥 블랙 */
+  --foreground: #f8fafc; /* 소프트 스노우 화이트 */
+  --accent-cyan: #00f2fe; /* 사이언 네온 */
+  --accent-pink: #ff007f; /* 핫핑크 네온 */
+  --accent-lime: #39ff14; /* 형광 라임 네온 */
+  --accent-orange: #ff5e00; /* 오렌지 네온 */
 }
 
 @theme {
@@ -17,167 +25,156 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
-/* 네오 브루탈리즘 모눈 격자 배경 */
-@utility bg-neo-grid {
-  background-size: 30px 30px;
-  background-image: 
-    linear-gradient(to right, rgba(9, 9, 11, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(9, 9, 11, 0.06) 1px, transparent 1px);
+/* 네온 브루탈리즘 공통 카드 레이아웃 (완전 직각 모서리 & 고대비 네온 입체 그림자) */
+@utility neon-card-cyan {
+  background-color: #0c0c14;
+  border: 3px solid var(--accent-cyan);
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px 0px var(--accent-cyan);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .neon-card-cyan {
+  box-shadow: 6px 6px 20px -5px rgba(0, 242, 254, 0.4), 6px 6px 0px 0px var(--accent-cyan);
 }
 
-.dark {
-  .bg-neo-grid {
-    background-image: 
-      linear-gradient(to right, rgba(250, 250, 249, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(250, 250, 249, 0.03) 1px, transparent 1px);
-  }
+@utility neon-card-pink {
+  background-color: #0c0c14;
+  border: 3px solid var(--accent-pink);
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px 0px var(--accent-pink);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .neon-card-pink {
+  box-shadow: 6px 6px 20px -5px rgba(255, 0, 127, 0.4), 6px 6px 0px 0px var(--accent-pink);
 }
 
-/* 네오 브루탈리즘 기본 박스 (neo-box) */
-@utility neo-box {
+@utility neon-card-lime {
+  background-color: #0c0c14;
+  border: 3px solid var(--accent-lime);
+  border-radius: 0px;
+  box-shadow: 6px 6px 0px 0px var(--accent-lime);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .neon-card-lime {
+  box-shadow: 6px 6px 20px -5px rgba(57, 255, 20, 0.4), 6px 6px 0px 0px var(--accent-lime);
+}
+
+/* 라이트 모드 대응을 위해 백그라운드 컬러 가변 카드 */
+@utility neon-card {
   background-color: var(--background);
-  border: 3.5px solid #09090b;
-  border-radius: 0px; /* 각진 스타일 */
-  box-shadow: 6px 6px 0px 0px #09090b;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.dark {
-  .neo-box {
-    border-color: #fafaf9;
-    box-shadow: 6px 6px 0px 0px #fafaf9;
-  }
-}
-
-/* 색상별 입체 박스 */
-@utility neo-box-yellow {
-  background-color: #fde047; /* yellow-300 */
-  border: 3.5px solid #09090b;
+  border: 3px solid var(--foreground);
   border-radius: 0px;
-  box-shadow: 6px 6px 0px 0px #09090b;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 6px 6px 0px 0px var(--foreground);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@utility neo-box-lime {
-  background-color: #bef264; /* lime-300 */
-  border: 3.5px solid #09090b;
-  border-radius: 0px;
-  box-shadow: 6px 6px 0px 0px #09090b;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@utility neo-box-cyan {
-  background-color: #67e8f9; /* cyan-300 */
-  border: 3.5px solid #09090b;
-  border-radius: 0px;
-  box-shadow: 6px 6px 0px 0px #09090b;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@utility neo-box-orange {
-  background-color: #fdba74; /* orange-300 */
-  border: 3.5px solid #09090b;
-  border-radius: 0px;
-  box-shadow: 6px 6px 0px 0px #09090b;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.dark {
-  .neo-box-yellow, .neo-box-lime, .neo-box-cyan, .neo-box-orange {
-    border-color: #fafaf9;
-    box-shadow: 6px 6px 0px 0px #fafaf9;
-  }
-  .neo-box-yellow { background-color: #ca8a04; } /* dark yellow */
-  .neo-box-lime { background-color: #65a30d; } /* dark lime */
-  .neo-box-cyan { background-color: #0891b2; } /* dark cyan */
-  .neo-box-orange { background-color: #ea580c; } /* dark orange */
-}
-
-/* 네오 브루탈리즘 버튼 (neo-btn) */
-@utility neo-btn {
+/* 네온 브루탈리즘 입체 인터랙션 버튼 */
+@utility neon-btn-cyan {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
   font-weight: 900;
   text-transform: uppercase;
-  border: 3.5px solid #09090b;
+  background-color: var(--accent-cyan);
+  color: #050508;
+  border: 3px solid #050508;
   border-radius: 0px;
-  box-shadow: 4px 4px 0px 0px #09090b;
-  transition: all 0.15s ease-out;
+  box-shadow: 4px 4px 0px 0px #050508;
+  transition: all 0.1s ease-out;
   cursor: pointer;
-}
-
-@utility neo-btn-yellow {
-  background-color: #fde047;
-}
-
-@utility neo-btn-cyan {
-  background-color: #67e8f9;
-}
-
-@utility neo-btn-white {
-  background-color: #ffffff;
-  color: #09090b;
-}
-
-.neo-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px 0px #09090b;
-}
-
-.neo-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px 0px #09090b;
-}
-
-.dark {
-  .neo-btn {
-    border-color: #fafaf9;
-    box-shadow: 4px 4px 0px 0px #fafaf9;
+  
+  &:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #050508;
   }
-  .neo-btn:hover {
-    box-shadow: 6px 6px 0px 0px #fafaf9;
-  }
-  .neo-btn:active {
-    box-shadow: 2px 2px 0px 0px #fafaf9;
-  }
-  .neo-btn-white {
-    background-color: #1c1917;
-    color: #fafaf9;
+  
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #050508;
   }
 }
 
-/* 네오 브루탈리즘 폼 인풋 */
-@utility neo-input {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: 3.5px solid #09090b;
+.dark .neon-btn-cyan {
+  border-color: var(--foreground);
+  box-shadow: 4px 4px 0px 0px var(--foreground);
+  
+  &:hover {
+    box-shadow: 2px 2px 0px 0px var(--foreground);
+  }
+  
+  &:active {
+    box-shadow: 0px 0px 0px 0px var(--foreground);
+  }
+}
+
+@utility neon-btn-pink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background-color: var(--accent-pink);
+  color: #ffffff;
+  border: 3px solid #050508;
   border-radius: 0px;
-  background-color: var(--background);
+  box-shadow: 4px 4px 0px 0px #050508;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #050508;
+  }
+  
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px #050508;
+  }
+}
+
+.dark .neon-btn-pink {
+  border-color: var(--foreground);
+  box-shadow: 4px 4px 0px 0px var(--foreground);
+  
+  &:hover {
+    box-shadow: 2px 2px 0px 0px var(--foreground);
+  }
+  
+  &:active {
+    box-shadow: 0px 0px 0px 0px var(--foreground);
+  }
+}
+
+/* 네오 브루탈리즘 인풋 폼 */
+@utility neon-input {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border-radius: 0px;
+  background-color: #0c0c14;
+  border: 3px solid var(--foreground);
+  color: var(--foreground);
   font-weight: 700;
   outline: none;
-  transition: all 0.2s ease;
-  box-shadow: 4px 4px 0px 0px #09090b;
+  box-shadow: 4px 4px 0px 0px var(--foreground);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  &:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 6px 6px 0px 0px var(--accent-cyan);
+    background-color: #0e1724;
+  }
 }
 
-.neo-input:focus {
-  background-color: #fde047; /* focus 시 시각적 대비 반전 (옐로우) */
-  color: #09090b;
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px 0px #09090b;
+/* 터미널 깜빡임 배지 애니메이션 */
+@keyframes neon-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-.dark {
-  .neo-input {
-    border-color: #fafaf9;
-    box-shadow: 4px 4px 0px 0px #fafaf9;
-  }
-  .neo-input:focus {
-    background-color: #ca8a04;
-    color: #fafaf9;
-    box-shadow: 6px 6px 0px 0px #fafaf9;
-  }
+@utility animate-flicker {
+  animation: neon-blink 1.2s infinite;
 }
 
 /* Custom Scrollbar */
@@ -186,19 +183,13 @@
 }
 ::-webkit-scrollbar-track {
   background: var(--background);
-  border-left: 3.5px solid #09090b;
-}
-.dark ::-webkit-scrollbar-track {
-  border-left-color: #fafaf9;
+  border-left: 3px solid var(--foreground);
 }
 ::-webkit-scrollbar-thumb {
-  background: #fde047;
-  border: 3px solid #09090b;
-}
-.dark ::-webkit-scrollbar-thumb {
-  background: #ca8a04;
-  border-color: #fafaf9;
+  background: var(--accent-cyan);
+  border: 2px solid var(--foreground);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #fdba74;
+  background: var(--accent-pink);
 }
+
