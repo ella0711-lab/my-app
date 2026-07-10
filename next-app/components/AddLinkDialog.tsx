@@ -57,6 +57,26 @@ export default function AddLinkDialog({ isOpen, onClose, onAdd }: AddLinkDialogP
 
   if (!isOpen) return null
 
+  // 실시간 검증을 위해 onChange 이벤트 래핑
+  const handleTitleChange = (val: string) => {
+    setTitle(val)
+    if (errors.title) {
+      if (val.trim() && val.length <= 50) {
+        setErrors(prev => ({ ...prev, title: undefined }))
+      }
+    }
+  }
+
+  const handleUrlChange = (val: string) => {
+    setUrl(val)
+    if (errors.url) {
+      const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/
+      if (val.trim() && urlPattern.test(val)) {
+        setErrors(prev => ({ ...prev, url: undefined }))
+      }
+    }
+  }
+
   const validate = () => {
     const newErrors: { title?: string; url?: string } = {}
     if (!title.trim()) {
@@ -136,21 +156,26 @@ export default function AddLinkDialog({ isOpen, onClose, onAdd }: AddLinkDialogP
         <form onSubmit={handleSubmit} className="relative space-y-5">
           {/* 제목 입력 */}
           <div className="space-y-1.5">
-            <label htmlFor="title" className="text-xs font-semibold text-slate-400 tracking-wider">
-              링크 제목 <span className="text-purple-400">*</span>
-            </label>
+            <div className="flex justify-between items-center">
+              <label htmlFor="title" className="text-xs font-semibold text-slate-400 tracking-wider">
+                링크 제목 <span className="text-purple-400">*</span>
+              </label>
+              <span className={`text-[10px] ${title.length >= 45 ? 'text-red-400 font-bold' : 'text-slate-500'}`}>
+                {title.length}/50
+              </span>
+            </div>
             <input
               type="text"
               id="title"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => handleTitleChange(e.target.value)}
               placeholder="예: 내 포트폴리오 사이트"
               className={`w-full rounded-xl border ${
-                errors.title ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-purple-500'
+                errors.title ? 'border-red-500/50 focus:border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.1)]' : 'border-white/10 focus:border-purple-500'
               } bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all focus:bg-white/10`}
               maxLength={50}
             />
-            {errors.title && <p className="text-xs text-red-400/90">{errors.title}</p>}
+            {errors.title && <p className="text-xs text-red-400/90 font-medium">{errors.title}</p>}
           </div>
 
           {/* URL 입력 */}
@@ -162,20 +187,25 @@ export default function AddLinkDialog({ isOpen, onClose, onAdd }: AddLinkDialogP
               type="text"
               id="url"
               value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => handleUrlChange(e.target.value)}
               placeholder="https://example.com"
               className={`w-full rounded-xl border ${
-                errors.url ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-purple-500'
+                errors.url ? 'border-red-500/50 focus:border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.1)]' : 'border-white/10 focus:border-purple-500'
               } bg-white/5 px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all focus:bg-white/10`}
             />
-            {errors.url && <p className="text-xs text-red-400/90">{errors.url}</p>}
+            {errors.url && <p className="text-xs text-red-400/90 font-medium">{errors.url}</p>}
           </div>
 
           {/* 설명 입력 */}
           <div className="space-y-1.5">
-            <label htmlFor="description" className="text-xs font-semibold text-slate-400 tracking-wider">
-              설명 (선택)
-            </label>
+            <div className="flex justify-between items-center">
+              <label htmlFor="description" className="text-xs font-semibold text-slate-400 tracking-wider">
+                설명 (선택)
+              </label>
+              <span className={`text-[10px] ${description.length >= 90 ? 'text-red-400 font-bold' : 'text-slate-500'}`}>
+                {description.length}/100
+              </span>
+            </div>
             <input
               type="text"
               id="description"
